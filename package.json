@@ -1,0 +1,26 @@
+{
+  "name": "hopeagold-market-watch",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Finds gold and silver coins listed below spot by private sellers on Huuto.net and Tori.fi. Own dashboard on localhost:3002 and phone alerts. Runs on macOS and Raspberry Pi OS.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "open": "node scripts/open.js",
+    "check": "node run.js",
+    "try-links": "node try-links.js",
+    "dry": "node run.js --no-push",
+    "test-push": "node run.js --test-push",
+    "summary": "cat data/latest.txt",
+    "log": "tail -n 80 data/logs/service.log",
+    "test": "node --test test/links.test.js test/check.test.js test/tori.test.js test/rules.test.js",
+    "service:install": "node scripts/service.js install",
+    "service:remove": "node scripts/service.js remove",
+    "service:restart": "node scripts/service.js restart",
+    "service:status": "node scripts/service.js status",
+    "service:print": "node scripts/service.js print"
+  }
+}

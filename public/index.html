@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market Watch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="coin">🪙</span>
+      <div><h1>HOPEAGOLD MARKET WATCH</h1><span class="sub">Huuto + Tori · private sellers · below spot</span></div>
+    </div>
+    <div id="spot" class="spot"></div>
+    <div class="run">
+      <span id="runStatus" class="dim"></span>
+      <button id="runNow" class="btn gold">Run check now</button>
+    </div>
+  </header>
+
+  <nav id="tabs">
+    <button class="tab active" data-tab="deals">Deals <span id="cDeals" class="count"></span></button>
+    <button class="tab" data-tab="check">Check weight <span id="cCheck" class="count"></span></button>
+    <button class="tab" data-tab="history">Bought &amp; hidden</button>
+    <button class="tab" data-tab="runs">Runs</button>
+    <button class="tab" data-tab="settings">Settings</button>
+  </nav>
+
+  <main>
+    <div id="lastRun" class="banner hidden"></div>
+    <section id="tab-deals" class="panel active"></section>
+    <section id="tab-check" class="panel"></section>
+    <section id="tab-history" class="panel"></section>
+    <section id="tab-runs" class="panel"></section>
+    <section id="tab-settings" class="panel"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
