@@ -287,3 +287,7 @@ _spec-template.md    spec template for back-end features
 | "Remove "sort=" from the Tori link" | Delete `sort=…` from the address in Settings |
 
 **Limits:** shipping isn't included in "below spot", auction prices usually rise near the close, and photos aren't checked (condition, fakes). Always open the listing before you pay. Market Watch never bids or buys for you. This is a price tool, not investment advice.
+
+## Licence
+
+[MIT](LICENSE) © 2026 HopeaGold: Coins, History and Precious Metals. Use, change and share it freely.

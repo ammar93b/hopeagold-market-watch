@@ -4,6 +4,7 @@
   "private": true,
   "description": "Finds gold and silver coins listed below spot by private sellers on Huuto.net and Tori.fi. Own dashboard on localhost:3002 and phone alerts. Runs on macOS and Raspberry Pi OS.",
   "main": "server.js",
+  "license": "MIT",
   "engines": {
     "node": ">=18"
   },
