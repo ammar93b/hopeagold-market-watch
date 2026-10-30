@@ -41,7 +41,7 @@ So restarts never run a slot twice, a manual check after a slot's start counts a
 - When it ends, log `Run finished: <summary>` or `Run finished: FAILED <error>`, and broadcast `update` with `{ at }`.
 - A crash outside `runOnce` is logged as `Run crashed: <message>`.
 
-**Linux / Raspberry Pi** (`scripts/service.js` on Linux): the same commands install a **systemd user service** `hopeagold-marketwatch.service`: `WantedBy=default.target`, `Restart=always`, `RestartSec=30`, the same working folder, PATH, HOME and PORT, logs appended to `data/logs/service.log`. Install prints `sudo loginctl enable-linger <user>` when lingering is off: it lets the service start at boot without a login. `print` shows the unit without installing anything. The Pi setup is in `deploy/raspberry-pi.md`.
+**Linux / Raspberry Pi** (`scripts/service.js` on Linux): the same commands install a **systemd user service** `hopeagold-marketwatch.service`: `WantedBy=default.target`, `Restart=always`, `RestartSec=30`, the same working folder (written without quotes, as systemd requires; install stops with a clear message if the folder path has a space), PATH, HOME and PORT, logs appended to `data/logs/service.log`. Install prints `sudo loginctl enable-linger <user>` when lingering is off: it lets the service start at boot without a login. `print` shows the unit without installing anything. The Pi setup is in `deploy/raspberry-pi.md`.
 
 **LaunchAgent** (`scripts/service.js` on macOS)
 - Label `fi.hopeagold.marketwatch`. Plist `~/Library/LaunchAgents/fi.hopeagold.marketwatch.plist`. Domain `gui/<uid>`.

@@ -1,6 +1,6 @@
 # Appendix B: Config, coin data and title rules
 
-Generated from the source on 2026-10-21 by `node specs/tools/build-appendix.js`. Do not edit by hand: change the source, then run the tool again. Each heading names the file and the function or block it came from.
+Generated from the source on 2026-10-30 by `node specs/tools/build-appendix.js`. Do not edit by hand: change the source, then run the tool again. Each heading names the file and the function or block it came from.
 
 The settings defaults, the verified coin table, the title rules and the project files, word for word. Specs: 01, 06, 05, 09.
 
@@ -407,6 +407,7 @@ NTFY_TOPIC=
   "private": true,
   "description": "Finds gold and silver coins listed below spot by private sellers on Huuto.net and Tori.fi. Own dashboard on localhost:3002 and phone alerts. Runs on macOS and Raspberry Pi OS.",
   "main": "server.js",
+  "license": "MIT",
   "engines": {
     "node": ">=18"
   },
@@ -419,7 +420,7 @@ NTFY_TOPIC=
     "test-push": "node run.js --test-push",
     "summary": "cat data/latest.txt",
     "log": "tail -n 80 data/logs/service.log",
-    "test": "node --test test/links.test.js test/check.test.js test/tori.test.js",
+    "test": "node --test test/links.test.js test/check.test.js test/tori.test.js test/rules.test.js",
     "service:install": "node scripts/service.js install",
     "service:remove": "node scripts/service.js remove",
     "service:restart": "node scripts/service.js restart",

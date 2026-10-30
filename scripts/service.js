@@ -109,7 +109,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=${q(ROOT)}
+WorkingDirectory=${ROOT}
 ExecStart=${q(process.execPath)} ${q(SERVER)}
 Environment=${q(`PATH=${PATHS}`)}
 Environment=${q(`HOME=${os.homedir()}`)}
@@ -140,6 +140,8 @@ function linuxRemove({ quiet = false } = {}) {
 }
 
 function linuxInstall() {
+  // systemd takes WorkingDirectory= and append: paths as they are: no quotes, so no spaces
+  if (/\s/.test(ROOT)) { console.log(`The project folder has a space in its path (${ROOT}).\nMove it to a folder without spaces, for example ~/hopeagold-market-watch, and install again.`); process.exit(1); }
   fs.mkdirSync(path.dirname(LOG), { recursive: true });
   fs.mkdirSync(path.dirname(UNIT), { recursive: true });
   linuxRemove({ quiet: true });

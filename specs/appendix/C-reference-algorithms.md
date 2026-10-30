@@ -1,6 +1,6 @@
 # Appendix C: Reference code
 
-Generated from the source on 2026-10-21 by `node specs/tools/build-appendix.js`. Do not edit by hand: change the source, then run the tool again. Each heading names the file and the function or block it came from.
+Generated from the source on 2026-10-30 by `node specs/tools/build-appendix.js`. Do not edit by hand: change the source, then run the tool again. Each heading names the file and the function or block it came from.
 
 The code behind every rule the specs say is enforced in code: sources and parsing, one check, valuation, alerts, settings, decisions, storage, the scheduler, the HTTP routes, the LaunchAgent and the report files.
 
@@ -1299,7 +1299,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-WorkingDirectory=${q(ROOT)}
+WorkingDirectory=${ROOT}
 ExecStart=${q(process.execPath)} ${q(SERVER)}
 Environment=${q(`PATH=${PATHS}`)}
 Environment=${q(`HOME=${os.homedir()}`)}
@@ -1355,6 +1355,8 @@ function linuxRemove({ quiet = false } = {}) {
 }
 
 function linuxInstall() {
+  // systemd takes WorkingDirectory= and append: paths as they are: no quotes, so no spaces
+  if (/\s/.test(ROOT)) { console.log(`The project folder has a space in its path (${ROOT}).\nMove it to a folder without spaces, for example ~/hopeagold-market-watch, and install again.`); process.exit(1); }
   fs.mkdirSync(path.dirname(LOG), { recursive: true });
   fs.mkdirSync(path.dirname(UNIT), { recursive: true });
   linuxRemove({ quiet: true });

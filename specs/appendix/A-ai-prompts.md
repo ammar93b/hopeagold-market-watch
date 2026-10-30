@@ -1,6 +1,6 @@
 # Appendix A: AI prompts and the AI program call
 
-Generated from the source on 2026-10-21 by `node specs/tools/build-appendix.js`. Do not edit by hand: change the source, then run the tool again. Each heading names the file and the function or block it came from.
+Generated from the source on 2026-10-30 by `node specs/tools/build-appendix.js`. Do not edit by hand: change the source, then run the tool again. Each heading names the file and the function or block it came from.
 
 Exact prompt text, as JavaScript template code. Rebuild these word for word. `${...}` marks a value filled in at run time; the expression shows where it comes from. Spec: 05-gold-silver-detection.md.
 
