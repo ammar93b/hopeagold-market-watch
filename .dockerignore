@@ -1,0 +1,7 @@
+.git
+.env*
+data
+node_modules
+CLAUDE.md
+.DS_Store
+SETUP.txt

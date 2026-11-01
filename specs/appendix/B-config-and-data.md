@@ -1,6 +1,6 @@
 # Appendix B: Config, coin data and title rules
 
-Generated from the source on 2026-10-30 by `node specs/tools/build-appendix.js`. Do not edit by hand: change the source, then run the tool again. Each heading names the file and the function or block it came from.
+Generated from the source on 2026-11-01 by `node specs/tools/build-appendix.js`. Do not edit by hand: change the source, then run the tool again. Each heading names the file and the function or block it came from.
 
 The settings defaults, the verified coin table, the title rules and the project files, word for word. Specs: 01, 06, 05, 09.
 

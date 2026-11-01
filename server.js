@@ -20,7 +20,7 @@ const { trimLog } = require('./src/logfile');
 const { NTFY_TOPIC } = require('./src/env');
 
 const PORT = Number(process.env.PORT) || 3002;
-const HOST = '127.0.0.1'; // never reachable from other devices
+const HOST = process.env.MARKET_WATCH_HOST || '127.0.0.1'; // never reachable from other devices (Docker sets 0.0.0.0 inside the container and publishes the port on 127.0.0.1 only)
 const PUBLIC = path.join(__dirname, 'public');
 const log = (...a) => console.log(new Date().toLocaleString('fi-FI'), ...a);
 

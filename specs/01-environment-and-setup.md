@@ -47,7 +47,8 @@ src/report.js        report.html and latest.txt (17)
 public/              dashboard: index.html, app.js, style.css (11–15)
 scripts/service.js   background service: launchd (macOS) or systemd (Linux); install / remove / restart / status / print (02)
 scripts/open.js      opens the dashboard (macOS `open`, Linux `xdg-open`)
-deploy/              Raspberry Pi setup guide
+deploy/              Raspberry Pi setup guide, Docker and Portainer guide
+Dockerfile, docker-compose.yml, .dockerignore   the optional container
 test/                tests on saved copies of the live pages: `npm test` (18)
 specs/               these specs
 README.md            the short guide shown on GitHub
@@ -114,7 +115,7 @@ Any API key that would make the AI tool bill an API account instead of the owner
 
 - Windows and Linux. The service manager is macOS `launchd` only.
 - Running on a server or in the cloud. It uses the AI tool's login on this computer.
-- Any npm package, build step, database or Docker.
+- Any npm package, build step or database. (Docker is optional: `deploy/docker.md`, spec 02.)
 - Paid APIs (AI API keys, paid spot feeds).
 
 ## Edge cases

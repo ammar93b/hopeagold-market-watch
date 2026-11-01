@@ -143,6 +143,10 @@ Leave that window open, then open **http://localhost:3002** in your Mac's browse
 - **No checks happening:** `npm run log`. Check the time zone (`timedatectl`), and that the Pi is on the network.
 - **Blocked websites:** if you run Pi-hole, allow these domains: `api.huuto.net`, `www.tori.fi`, `api.gold-api.com`, `api.frankfurter.dev`, `ntfy.sh`, `github.com`, and your AI tool's own domains. A blocked domain shows up as a failed check in the Runs tab.
 
+## Prefer Docker and Portainer?
+
+The same program also runs as a container, managed from one Portainer page together with your other programs: see [docker.md](docker.md). Use one way or the other, not both.
+
 ## Limits of this setup
 
 - The Pi must be on and connected to the internet. Checks catch up after an outage.

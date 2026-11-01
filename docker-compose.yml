@@ -1,0 +1,35 @@
+# Market Watch in Docker (deploy/docker.md).
+#   mkdir -p data && cp .env.example .env   (fill in .env; the AI lines are set below)
+#   docker compose up -d --build
+#   docker compose exec -it marketwatch claude      (log in to the AI tool once: /login)
+services:
+  marketwatch:
+    build: .
+    image: hopeagold-market-watch
+    container_name: hopeagold-marketwatch
+    restart: unless-stopped
+    init: true
+    ports:
+      - "127.0.0.1:3002:3002"    # the dashboard, on this computer only (never the network)
+    environment:
+      TZ: Europe/Helsinki
+      # Inside the container the AI tool lives here, whatever AI_COMMAND says in .env
+      # (real environment variables win over .env). Change both lines for another AI tool.
+      AI_COMMAND: /usr/local/bin/claude
+      CLAUDE_CONFIG_DIR: /home/node/.claude
+    volumes:
+      - ./.env:/app/.env:ro                  # topic, AI settings (read by the app itself)
+      - ./data:/app/data                     # settings, history, findings: survives updates
+      - ai-login:/home/node/.claude          # the AI tool's login: log in once
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3002/api/state').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 1m
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    logging:
+      driver: json-file
+      options: { max-size: "2m", max-file: "3" }
+
+volumes:
+  ai-login:

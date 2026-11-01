@@ -2,7 +2,7 @@
 
 Finds gold and silver coins listed **below spot** by **private sellers** on Tori.fi and Huuto.net, and tells your phone what to do about each one.
 
-It runs on a **Mac** (background service) or on a **Raspberry Pi** (see [`deploy/raspberry-pi.md`](deploy/raspberry-pi.md)). Only one of them may run it.
+It runs on a **Mac** (background service) or on a **Raspberry Pi** (see [`deploy/raspberry-pi.md`](deploy/raspberry-pi.md)), or as a **Docker container** managed with Portainer ([`deploy/docker.md`](deploy/docker.md)). Only one of them may run it.
 
 > **Built for Finland.** I built Market Watch around the Finnish marketplaces I buy from: **Tori.fi**, Finland's main second-hand market and my secondary market for coins, and **Huuto.net** (online auctions and buy-now). Prices are in euros and the alert texts follow Finnish formats.
 >
@@ -266,7 +266,8 @@ config.js            run hours, timeouts, Huuto category names
 src/                 sources (spot, Huuto, Tori), rules, AI, valuation, alerts, ntfy
 public/              dashboard (index.html, app.js, style.css)
 scripts/service.js   background service: macOS (launchd) or Linux / Raspberry Pi (systemd)
-deploy/              Raspberry Pi setup guide
+deploy/              Raspberry Pi setup guide, Docker and Portainer guide
+Dockerfile, docker-compose.yml   the optional container
 docs/                architecture diagram: architecture.drawio (edit) and architecture.png
 test/                tests on saved copies of the live pages (npm test)
 specs/               rebuild specifications and verbatim appendices

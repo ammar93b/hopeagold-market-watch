@@ -89,7 +89,7 @@ None of its own. It serves `public/` (11).
 
 ### Config
 
-`PORT` from the environment (01). The host is fixed to 127.0.0.1.
+`PORT` from the environment (01). The host is 127.0.0.1, unless `MARKET_WATCH_HOST` is set: only the Docker image sets it (`0.0.0.0`, inside the container; the compose file publishes the port on `127.0.0.1` only, 02).
 
 ## Acceptance criteria
 

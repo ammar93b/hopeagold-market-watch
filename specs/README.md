@@ -62,6 +62,7 @@ Each spec starts with the same rule: it is the single source of truth, and nothi
 - The Tori link is any Tori search address pasted in Settings. Huuto is three links, each one category (1166, 1165, 260), with the metals wanted from each (gold and silver; silver only for 260). Huuto's API cannot filter any other way. Only those places are watched. Auctions count only inside those links.
 - Links in `my-links.js`, editable rules in `rules/` (coin specs, title rules, deal rules), `npm run try-links` to test links without saving or alerting (03).
 - The same code runs on a Raspberry Pi 5 as a systemd service (`deploy/raspberry-pi.md`).
+- 1 Nov 2026: optional **Docker** setup (`Dockerfile`, `docker-compose.yml`, `deploy/docker.md`) so one **Portainer** page can manage Market Watch and Pantti on the Pi. launchd / systemd stay the default; Docker is not recommended on a Mac (Docker Desktop's memory). The AI tool's login lives in a Docker volume.
 
 ## Keeping these specs current
 

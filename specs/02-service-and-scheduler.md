@@ -12,7 +12,7 @@ One always-on Node process that serves the dashboard and starts a check at every
 `server.js` is the whole service: the HTTP server (16) and the scheduler. macOS starts it at login and restarts it if it stops. It decides by itself when a check is due, so no cron job is used. Reference code: appendix C, "server.js" and "scripts/service.js".
 
 **Startup**
-- Listen on `127.0.0.1:<PORT>` (default 3002). Never on other interfaces.
+- Listen on `127.0.0.1:<PORT>` (default 3002). Never on other interfaces. The one exception is Docker: `MARKET_WATCH_HOST=0.0.0.0` (set only in the image) makes it listen on all interfaces **inside the container**, and `docker-compose.yml` publishes the port as `127.0.0.1:3002:3002`, so it is still reachable from the computer itself only.
 - On listening, log `Market Watch dashboard: http://localhost:<PORT>  (runs at 9:00, 10:00, …)`.
 - Run `tick()` once after 5 seconds, then every 30 seconds.
 - If the port is taken, log `Port <PORT> is already in use — is Market Watch already running? (npm run service:status)` and exit with code 1. launchd tries again after 30 s.
@@ -43,6 +43,8 @@ So restarts never run a slot twice, a manual check after a slot's start counts a
 
 **Linux / Raspberry Pi** (`scripts/service.js` on Linux): the same commands install a **systemd user service** `hopeagold-marketwatch.service`: `WantedBy=default.target`, `Restart=always`, `RestartSec=30`, the same working folder (written without quotes, as systemd requires; install stops with a clear message if the folder path has a space), PATH, HOME and PORT, logs appended to `data/logs/service.log`. Install prints `sudo loginctl enable-linger <user>` when lingering is off: it lets the service start at boot without a login. `print` shows the unit without installing anything. The Pi setup is in `deploy/raspberry-pi.md`.
 
+**Docker (optional)** (`deploy/docker.md`; the same files on a Mac and a Raspberry Pi): `Dockerfile` (`node:22-bookworm-slim`, amd64 and arm64; installs the AI tool with `npm install -g $AI_NPM_PACKAGE`, build argument, default `@anthropic-ai/claude-code`, empty = none; user `node`; `TZ=Europe/Helsinki`, `MARKET_WATCH_HOST=0.0.0.0`, `PORT=3002`, `CLAUDE_CONFIG_DIR=/home/node/.claude`; `CMD node server.js`). `docker-compose.yml`: container `hopeagold-marketwatch`, `restart: unless-stopped`, `init: true`, port `127.0.0.1:3002:3002`; `./.env` mounted read-only at `/app/.env` (the app reads it itself, so `AI_ARGS` keep their quoting); `./data` at `/app/data`; a named volume `ai-login` at `/home/node/.claude` (the AI tool's login, made once with `docker compose exec -it marketwatch claude`, `/login`); environment `AI_COMMAND=/usr/local/bin/claude` and `CLAUDE_CONFIG_DIR` (real environment variables win over `.env`, so the path of the Mac or Pi in `.env` does not matter); a health check that fetches `/api/state` every minute; json-file logs capped at 3 × 2 MB (the server prints its log to standard output, so `docker logs` shows it). Only one of launchd, systemd and Docker may run Market Watch at a time. Portainer manages the container (start, stop, logs, console); setup and updates use `docker compose`.
+
 **LaunchAgent** (`scripts/service.js` on macOS)
 - Label `fi.hopeagold.marketwatch`. Plist `~/Library/LaunchAgents/fi.hopeagold.marketwatch.plist`. Domain `gui/<uid>`.
 - Plist keys: `Label`; `ProgramArguments` [absolute Node path of the installing process, `<project>/server.js`]; `WorkingDirectory` the project; `RunAtLoad` true; `KeepAlive` true; `ThrottleInterval` 30; `EnvironmentVariables` `PATH` (Node's folder, `~/.local/bin`, `/opt/homebrew/bin`, `/usr/local/bin`, `/usr/bin`, `/bin`, `/usr/sbin`, `/sbin`), `HOME`, `PORT`; `StandardOutPath` and `StandardErrorPath` both `data/logs/service.log`; `ProcessType` Background. Values are XML-escaped.
@@ -65,7 +67,8 @@ So restarts never run a slot twice, a manual check after a slot's start counts a
 
 ## Acceptance criteria
 
-- [ ] The dashboard is reachable at `http://localhost:3002` and not from another device on the network.
+- [ ] The dashboard is reachable at `http://localhost:3002` and not from another device on the network (in Docker too: the published port is `127.0.0.1:3002`).
+- [ ] `docker compose up -d --build` gives a container that is `healthy` after about a minute; after `docker compose exec -it marketwatch claude` and `/login`, a check's AI steps work; `docker compose down` and `up -d` keep `data/` and the login.
 - [ ] With run hours 9–23, a check starts within 30 s after each full hour from 9:00 to 23:00, and never between 0:00 and 8:59.
 - [ ] Restarting the service at 14:20, after the 14:00 check ran, does not start another check before 15:00.
 - [ ] The Mac sleeps 11:30–14:45: on wake, exactly one check runs (slot 14:00), then the next at 15:00.
@@ -79,7 +82,9 @@ So restarts never run a slot twice, a manual check after a slot's start counts a
 - Running more than one check at a time.
 - Checks on a fixed minute other than :00, or several per hour.
 - Catching up missed slots from earlier days, or every missed hour of today.
-- Any service manager other than launchd.
+- Any service manager other than launchd, systemd and Docker.
+- Publishing an image to a registry: the owner builds it from the repository.
+- Windows (Docker Desktop on Windows is untested).
 
 ## Edge cases
 
